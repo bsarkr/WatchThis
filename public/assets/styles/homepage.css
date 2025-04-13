@@ -1,3 +1,59 @@
-p {
-    color: blue;
+body {
+    font-family: 'Noto Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #121212;
+    color: white;
+}
+h1{
+    color:red;
+    padding-top: 20px;
+    margin: 0;
+    font-size: 50px;
+    font-weight: 700;
+}
+h2{
+    color:white;
+    padding-top: 10px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+}
+noto-sans{
+    font-family: "Noto Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
+
+#movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+}
+.movie-card {
+    width: 220px;
+    background: #141414;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+.movie-card:hover {
+    transform: scale(1.1);
+}
+.movie-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+.movie-title {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
 }

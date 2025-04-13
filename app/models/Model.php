@@ -29,4 +29,30 @@ abstract class Model {
         return false;
     }
 
+    private $api;
+
+    public function __construct()
+    {
+        $this->api = new Api();
+    }
+
+    public function getStreamingAvailability($type, $id)
+    {
+        return $this->api->getStreamingAvailability($type, $id);
+    }
+
+    public function createMoviesTable() {
+        $query = "CREATE TABLE IF NOT EXISTS movies (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            title VARCHAR(255),
+            description TEXT,
+            image VARCHAR(255),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
+        $this->query($query);
+    }
+
+
+   
+
 }

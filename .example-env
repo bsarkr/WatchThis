@@ -1,5 +1,0 @@
-use this to create a .env file
-DBNAME=your db name
-DBHOST=localhost
-DBUSER=user name
-DBPASS=password name

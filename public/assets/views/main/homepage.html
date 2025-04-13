@@ -3,10 +3,36 @@
         <!-- remember to route relative to index.php  -->
         <script type="text/javascript" src="./assets/js/homepage.js"></script>
         <link rel="stylesheet" href="./assets/styles/homepage.css">
+
+        <!--Adding "Noto Sans" font from google-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>WatchThis</title>
+
     </head>
 
     <body>
-        <p>homepage!</p>
+        <h1>WatchThis</h1>
+        <h2>Find Your Favorite Movies!</h2>
+
+        <div class="search-bar">
+            <input type="text" id="movie-search" placeholder="Search for movies...">
+            <button onclick="searchMovies()">Search</button>
+        </div>
+        
+        <div id="search-results" class="scroll-row"></div>
+
+        <div id="movies-container">
+
+            
+        </div>
+
+
+
+        
     </body>
 </html>
-

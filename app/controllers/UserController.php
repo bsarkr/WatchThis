@@ -1,9 +1,9 @@
 <?php
 
-namespace app\controllers;
+namespace app\core;
 use app\models\User;
 
-//this is an example controller class, feel free to delete
+
 class UserController extends Controller {
     public function getUsers() {
         $userModel = new User();
