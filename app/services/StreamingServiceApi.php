@@ -29,10 +29,24 @@ class StreamingServiceApi{
             ]
         ]);
     
+
+        /*
         $response = curl_exec($curl);
         curl_close($curl);
     
         $data = json_decode($response, true);
         return $data['shows'] ?? [];
+
+        */
+
+        $response = curl_exec($curl);
+
+        //Log it for debugging
+        file_put_contents(__DIR__ . '/../../logs/last_api_response.json', $response);
+
+        curl_close($curl);
+        $data = json_decode($response, true);
+
+        return $data; //temporarily return full response to inspect
     }
 }
