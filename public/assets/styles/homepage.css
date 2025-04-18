@@ -1,4 +1,4 @@
-/*Base Styles*/
+/* Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +14,7 @@ body {
   background-color: rgb(23, 23, 23);
   color: white;
   margin: 0;
-  overflow-x: hidden; /* Prevent full-page horizontal scroll */
+  overflow-x: hidden;
 }
 
 main {
@@ -23,147 +23,218 @@ main {
   align-items: center;
 }
 
-/*Header*/
+main#content {
+  margin-top: 0px;
+}
+
+/* Header Layout */
 header {
   position: sticky;
   top: 0;
   background-color: rgb(23, 23, 23);
-  z-index: 10000; /* keeps header above rest of site after loader is gone */
-  text-align: center;
-  padding-bottom: 10px;
+  z-index: 10000;
+  padding-top: 30px; /* lowered the whole header */
+  padding-bottom: 100px;
+  height: auto;
 }
 
-/*Headings*/
+#main-header.scrolled {
+  padding-bottom: 0px !important;
+}
+
+/* Row that holds buttons and center content */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 90px;
+  position: relative;
+}
+
+/* Buttons left and right stay in flex rows */
+.header-left,
+.header-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Center logo + search bar — fixed absolute center */
+.header-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+  margin-top: 40px;
+}
+
+/* Header Text */
 h1 {
-  color: red;
-  padding-top: 20px;
+  color: #ff4eaf;
   font-size: 50px;
   font-weight: 700;
+  margin-bottom: 4px;
 }
 
 h2 {
   color: white;
-  padding-top: 10px;
   font-size: 20px;
   font-weight: 300;
+  margin-bottom: 8px;
 }
 
-.category-section {
-  width: 100%;
-  padding: 0 2rem;
-}
-
-.category-section h2 {
-  text-align: left;
-  width: 100%;
-  padding-left: 2rem;
-  margin-top: 2rem;
-  font-size: 1.6rem;
+/* Navigation Buttons - soft pinkish muted tone */
+.nav-btn {
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
   font-weight: 600;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
   color: white;
+  background: linear-gradient(145deg, #d9539c, #a84e84);
+  box-shadow: 0 0 8px rgba(217, 83, 156, 0.3);
+  transition: all 0.25s ease-in-out;
 }
 
-/*Movie Row Section*/
-.scroll-row {
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px rgba(217, 83, 156, 0.5);
+}
+
+/* Search Bar to match button style */
+.group {
   display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  max-width: 290px;
+  margin: 1rem auto;
+}
+
+/* SCROLL TRANSITION HEADER */
+/* Compact Header */
+.compact-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(23, 23, 23);
+  padding: 0 2rem;
+  height: 90px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10001;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeSlideDown 0.3s ease-in-out;
+}
+
+.compact-left {
+  display: flex;
+  align-items: center;
   gap: 1rem;
-  padding: 1rem;
-  scroll-behavior: auto;
-  transition: transform 0.3s ease;
-  white-space: nowrap;
-  scroll-snap-type: x mandatory; /* Enable snap scrolling */
-  -webkit-overflow-scrolling: touch; /* Enable momentum scrolling on iOS */
-
-
-  /* Hide scrollbar in all browsers */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-}
-.scroll-row::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
 }
 
-.scroll-row:hover {
-  transform: scale(1.03); /* Slight row zoom on hover */
+
+/* Animation for header entry */
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/*Individual Movie Cards*/
-.movie-tile {
-  width: 160px;
-  flex: 0 0 auto;
-  text-align: center;
-  transition: transform 0.3s ease;
-  scroll-snap-align: start;
-}
-
-.movie-tile:hover {
-  transform: scale(1.2);
-  z-index: 10;
-}
-
-.movie-tile img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.movie-tile p {
-  margin-top: 8px;
-  font-size: 14px;
-  color: white;
-  text-align: center;
-  height: 2em;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* Compact WatchThis logo */
+#compact-logo,
+.compact-logo {
+  font-size: 35px;
+  font-weight: 700;
+  color: #ff4eaf;
+  margin-right: 1rem;
   white-space: nowrap;
 }
 
-/*Alternative Grid Container*/
-#movies-container {
+/* Compact search bar alignment */
+.compact-search {
+  flex: 1 1 auto;
+  margin-right: 1rem;
+  min-width: 350px;
+  max-width: 800px; /* makes it visibly longer */
+}
+
+/* Buttons stacked right */
+.compact-buttons {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  padding: 20px;
+  gap: 0.5rem;
+  align-items: center;
 }
 
-/* If using .movie-card elsewhere */
-.movie-card {
-  width: 220px;
-  background: #141414;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out;
+#main-header.scrolled #original-header {
+  display: none;
 }
 
-.movie-card:hover {
-  transform: scale(1.1);
+#main-header.scrolled #scrolled-header {
+  display: flex;
 }
 
-.movie-card img {
+.input {
+  font-family: "Montserrat", sans-serif;
   width: 100%;
-  height: 320px;
-  object-fit: cover;
+  height: 45px;
+  padding-left: 2.5rem;
+  box-shadow: 0 0 0 1.5px #a84e84, 0 0 20px -18px #000;
+  border: 0;
+  border-radius: 12px;
+  background-color: #2a2a2a;
+  outline: none;
+  color: #f0d8e5;
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+  cursor: text;
+  z-index: 0;
 }
 
-.movie-title {
-  padding: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
+.input::placeholder {
+  color: #c59bb2;
 }
 
+.input:hover {
+  box-shadow: 0 0 0 2px #d9539c, 0px 0px 15px -12px #000;
+}
 
+.input:active {
+  transform: scale(0.95);
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2px #d9539c;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  fill: #c59bb2;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Loader */
 #movie-wrapper {
   position: relative;
 }
 
-/* Loader over content */
 .loader-container {
-  position: fixed; /* make it float above all */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -174,8 +245,6 @@ h2 {
   align-items: center;
   z-index: 9999;
 }
-
-
 
 .newtons-cradle {
   --uib-size: 50px;
@@ -225,4 +294,110 @@ h2 {
   0% { transform: rotate(0deg); animation-timing-function: linear; }
   50% { transform: rotate(0deg); animation-timing-function: ease-out; }
   75% { transform: rotate(-70deg); animation-timing-function: ease-in; }
+}
+
+/* Category Titles */
+.category-section {
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.category-section h2 {
+  text-align: left;
+  width: 100%;
+  padding-left: 2rem;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Movie Rows */
+.scroll-row {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 1rem;
+  padding: 1rem;
+  scroll-behavior: auto;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-row:hover {
+  transform: scale(1.03);
+}
+
+/* Movie Tiles */
+.movie-tile {
+  width: 160px;
+  flex: 0 0 auto;
+  text-align: center;
+  transition: transform 0.3s ease;
+  scroll-snap-align: start;
+}
+
+.movie-tile:hover {
+  transform: scale(1.2);
+  z-index: 10;
+}
+
+.movie-tile img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.movie-tile p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+  height: 2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Grid-style fallback layout */
+#movies-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+}
+
+.movie-card {
+  width: 220px;
+  background: #141414;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.movie-card:hover {
+  transform: scale(1.1);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+}
+
+.movie-title {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
 }

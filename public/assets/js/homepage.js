@@ -1,16 +1,21 @@
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   fetch('/api/movies')
     .then(res => res.json())
     .then(data => {
       console.log("Fetched data:", data);
-      populateRow('trending-row', data.trending);
-      populateRow('topRated-row', data.topRated);
-      populateRow('recent-row', data.recent);
-      populateRow('action-row', data.action);
-      
+
+      // movies
+      populateRow('movieTrending-row', data.movies?.trending);
+      populateRow('movieTopRated-row', data.movies?.topRated);
+      populateRow('movieRecent-row', data.movies?.recent);
+      populateRow('movieAction-row', data.movies?.action);
+
+      // tv shows
+      populateRow('tvTrending-row', data.tv?.trending);
+      populateRow('tvTopRated-row', data.tv?.topRated);
+      populateRow('tvRecent-row', data.tv?.recent);
+      populateRow('tvAction-row', data.tv?.action);
+
       document.getElementById('loader').style.display = 'none';
       document.getElementById('content').style.display = 'block';
     })
@@ -19,8 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById('loader').style.display = 'none';
       document.getElementById('content').style.display = 'block';
     });
-
-  setupScrollArrows();
 });
 
 function populateRow(rowId, movies) {
@@ -32,13 +35,23 @@ function populateRow(rowId, movies) {
 
   row.innerHTML = '';
 
-  // Create 3x copies for seamless scroll illusion
+  // Add buffer item to start and end for seamless looping
   const scrollMovies = [...movies, ...movies, ...movies];
 
   scrollMovies.forEach(movie => {
     const tile = document.createElement('div');
     tile.className = 'movie-tile';
-    const imageUrl = movie.imageSet?.verticalPoster?.w240 || movie.fallbackPoster || 'https://via.placeholder.com/240x360';
+
+    let imageUrl = '';
+    const verticalPoster = movie.imageSet?.verticalPoster?.w240;
+
+    if (verticalPoster && !verticalPoster.includes('image.svg')) {
+      imageUrl = verticalPoster;
+    } else if (movie.fallbackPoster) {
+      imageUrl = movie.fallbackPoster;
+    } else {
+      imageUrl = 'https://via.placeholder.com/240x360';
+    }
 
     tile.innerHTML = `
       <img src="${imageUrl}" alt="${movie.title}">
@@ -47,29 +60,26 @@ function populateRow(rowId, movies) {
     row.appendChild(tile);
   });
 
-  // Jump to the middle set of movies
+  // Jump to the middle set start (with +2 offset for accurate alignment)
   requestAnimationFrame(() => {
     const tile = row.querySelector('.movie-tile');
     if (tile) {
-      row.scrollLeft = tile.offsetWidth * movies.length;
+      row.scrollLeft = tile.offsetWidth * (movies.length + 2);
     }
   });
 
-  // Smooth infinite scroll handling
   row.addEventListener('scroll', () => {
     const tile = row.querySelector('.movie-tile');
     if (!tile) return;
 
-    const tileWidth = tile.offsetWidth + 16; // tile width + gap
+    const tileWidth = tile.offsetWidth + 16;
     const totalTiles = movies.length;
     const scrollLeft = row.scrollLeft;
-    const maxScroll = tileWidth * totalTiles * 2;
+    const maxScroll = tileWidth * (totalTiles * 2 + 1);
 
     if (scrollLeft < tileWidth) {
-      // too far left, jump forward
       row.scrollLeft = scrollLeft + tileWidth * totalTiles;
     } else if (scrollLeft > maxScroll - tileWidth) {
-      // too far right, jump backward
       row.scrollLeft = scrollLeft - tileWidth * totalTiles;
     }
   });
@@ -89,3 +99,21 @@ function searchMovies() {
     })
     .catch(err => console.error("Error searching:", err));
 }
+
+// Header Scroll Transition
+let lastState = false;
+window.addEventListener("scroll", function () {
+  const header = document.getElementById("main-header");
+  const scrollHeader = document.getElementById("scrolled-header");
+  const scrollY = window.scrollY;
+
+  if (scrollY > 180 && !lastState) {
+    header.classList.add("scrolled");
+    scrollHeader.style.display = "flex";
+    lastState = true;
+  } else if (scrollY < 100 && lastState) {
+    header.classList.remove("scrolled");
+    scrollHeader.style.display = "none";
+    lastState = false;
+  }
+});

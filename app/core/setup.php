@@ -23,21 +23,3 @@ define('DBUSER', $env['DBUSER']);
 define('DBPASS', $env['DBPASS']);
 
 
-/*
-$model = new Model();
-
-try{
-    $model->createMoviesTable();
-}catch(Exception $e){
-    error_log("Error creating movies table: " . $e->getMessage());
-    echo "Error creating movies table: " . $e->getMessage();
-}
-
-try{
-    $availability = $model->getStreamingAvailability('movie', '12345');
-    echo $availability;
-}catch(Exception $e){
-    error_log("Error getting streaming availability: " . $e->getMessage());
-    echo "Error getting streaming availability: " . $e->getMessage();
-}
-*/

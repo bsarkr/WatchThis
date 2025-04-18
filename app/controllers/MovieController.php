@@ -25,57 +25,45 @@ class MovieController extends Controller {
     }
 
     public function getMovies() {
-        $title = $_GET['title'] ?? 'batman';
-        $moviesData = $this->streamingService->getMovies($title);
+        $title = $_GET['title'] ?? null;
     
-        echo "<pre>";
-        print_r($moviesData);
-        echo "</pre>";
-        exit();
-    }
-
-    public function getPopularMovies() {
-        $moviesData = $this->streamingService->getMovies("popular");
+        // Movies and TV show data
+        $movies = $this->streamingService->getMovies($title);
+        $tvShows = $this->streamingService->getTVShows();
+    
+        // Return both
         header('Content-Type: application/json');
-        echo json_encode($moviesData);
+        echo json_encode([
+            'trending' => $movies['trending'] ?? [],
+            'topRated' => $movies['topRated'] ?? [],
+            'recent' => $movies['recent'] ?? [],
+            'action' => $movies['action'] ?? [],
+            'tv' => [
+                'trending' => $tvShows['trending'] ?? [],
+                'topRated' => $tvShows['topRated'] ?? [],
+                'recent' => $tvShows['recent'] ?? [],
+                'action' => $tvShows['action'] ?? []
+            ]
+        ]);
         exit();
-    }
-    
-    // getting movies by genre
-    public function getMoviesByGenre($genre, $country = 'us') {
-        $endpoint = "/shows/search/filters";
-        $params = [
-            'country' => $country,
-            'genres' => $genre,
-            'show_type' => 'movie'
-        ];
-        return $this->makeApiRequest($endpoint, $params);
-    }
-
-
-
-    //getting top 10 movies
-    public function getTop10Movies($country = 'us') {
-        $endpoint = "/shows/top";
-        $params = [
-            'country' => $country,
-            'show_type' => 'movie'
-        ];
-        return $this->makeApiRequest($endpoint, $params);
     }
 
 
     public function searchMovies($query) {
-        $moviesData = $this->streamingService->getMovies($query);
+        $movies = $this->streamingService->getMovies($query);
+        $tvShows = $this->streamingService->getTVShows($query);
     
-        if (!is_array($moviesData)) {
+        if (!is_array($movies) || !is_array($tvShows)) {
             http_response_code(500);
             echo json_encode(["error" => "Invalid data returned from API"]);
             return;
         }
     
         header('Content-Type: application/json');
-        echo json_encode($moviesData);
+        echo json_encode([
+            'movies' => $movies,
+            'tv' => $tvShows
+        ]);
         exit();
     }
     
