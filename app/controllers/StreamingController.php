@@ -7,15 +7,22 @@ use app\services\StreamingServiceApi;
 
 class StreamingController extends Controller {
     public function getMovies() {
-        $title = $_GET['title'] ?? 'batman'; // fallback title
-        $country = $_GET['country'] ?? 'us'; // fallback country
+        $title = $_GET['title'] ?? null;
+        $country = $_GET['country'] ?? 'us';
     
         $service = new StreamingServiceApi();
-        $movies = $service->getMovies($title, $country);
+    
+        //0nly pass title if actually searching
+        if ($title && trim($title) !== '') {
+            $movies = $service->getMovies($title, $country);
+        } else {
+            $movies = $service->getMovies(null, $country); //default categories
+        }
     
         header('Content-Type: application/json');
         echo json_encode($movies);
     }
+
 
     //getting movie by id
     public function getMovieById($type, $id) {

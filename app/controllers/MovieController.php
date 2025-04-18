@@ -41,12 +41,29 @@ class MovieController extends Controller {
         exit();
     }
     
-    public function getTop10Movies() {
-        $moviesData = $this->streamingService->getMovies("top_10"); 
-        header('Content-Type: application/json');
-        echo json_encode($moviesData);
-        exit();
+    // getting movies by genre
+    public function getMoviesByGenre($genre, $country = 'us') {
+        $endpoint = "/shows/search/filters";
+        $params = [
+            'country' => $country,
+            'genres' => $genre,
+            'show_type' => 'movie'
+        ];
+        return $this->makeApiRequest($endpoint, $params);
     }
+
+
+
+    //getting top 10 movies
+    public function getTop10Movies($country = 'us') {
+        $endpoint = "/shows/top";
+        $params = [
+            'country' => $country,
+            'show_type' => 'movie'
+        ];
+        return $this->makeApiRequest($endpoint, $params);
+    }
+
 
     public function searchMovies($query) {
         $moviesData = $this->streamingService->getMovies($query);

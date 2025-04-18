@@ -1,38 +1,81 @@
 <html>
-    <head>
-        <!-- remember to route relative to index.php  -->
-        <script type="text/javascript" src="./assets/js/homepage.js"></script>
-        <link rel="stylesheet" href="./assets/styles/homepage.css">
+<head>
+  <script type="text/javascript" src="/assets/js/homepage.js" defer></script>
+  <link rel="stylesheet" href="/assets/styles/homepage.css">
 
-        <!--Adding "Noto Sans" font from google-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WatchThis</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WatchThis</title>
+</head>
+<body>
 
-    </head>
+  <!-- Header Always visible -->
+  <header>
+    <h1>WatchThis</h1>
+    <h2>Find Your Favorite Movies!</h2>
+    <div class="search-bar">
+      <input type="text" id="movie-search" placeholder="Search for movies...">
+      <button onclick="searchMovies()">Search</button>
+    </div>
+  </header>
 
-    <body>
-        <h1>WatchThis</h1>
-        <h2>Find Your Favorite Movies!</h2>
+  <!-- movie wrapper (only this gets hidden while loading) -->
+  <div id="movie-wrapper">
 
-        <div class="search-bar">
-            <input type="text" id="movie-search" placeholder="Search for movies...">
-            <button onclick="searchMovies()">Search</button>
+    <!--Loader stays centered over only the content -->
+    <div id="loader" class="loader-container">
+      <div class="newtons-cradle">
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+      </div>
+    </div>
+
+    <!--Hidden movie content -->
+    <main id="content" style="display: none">
+      <section class="category-section">
+        <h2>Trending</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="trending-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
         </div>
-        
-        <div id="search-results" class="scroll-row"></div>
+      </section>
 
-        <div id="movies-container">
-
-            
+      <section class="category-section">
+        <h2>Top Rated This Year</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="topRated-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
         </div>
+      </section>
 
+      <section class="category-section">
+        <h2>Recently Added</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="recent-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
 
-
-        
-    </body>
+      <section class="category-section">
+        <h2>Action Picks</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="action-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+    </main>
+    
+  </div>
+</body>
 </html>

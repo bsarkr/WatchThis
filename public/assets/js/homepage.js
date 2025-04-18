@@ -1,51 +1,91 @@
 
 
-async function fetchMovies() {
-    try {
-        const response = await fetch("/api/movies");
-        const movies = await response.json();
-        const container = document.getElementById("movies-container");
-        container.innerHTML = ""; //Clear previous movies
-        
-        movies.forEach(movie => {
-            const card = document.createElement("div");
-            card.classList.add("movie-card");
 
-            const image = document.createElement("img");
-            image.src = movie.posterURLs?.original || "https://via.placeholder.com/200";
-            image.alt = movie.title;
+document.addEventListener("DOMContentLoaded", () => {
+  fetch('/api/movies')
+    .then(res => res.json())
+    .then(data => {
+      console.log("Fetched data:", data);
+      populateRow('trending-row', data.trending);
+      populateRow('topRated-row', data.topRated);
+      populateRow('recent-row', data.recent);
+      populateRow('action-row', data.action);
+      
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+    })
+    .catch(err => {
+      console.error('Error fetching movie data:', err);
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+    });
 
-            const title = document.createElement("div");
-            title.classList.add("movie-title");
-            title.textContent = movie.title;
+  setupScrollArrows();
+});
 
-            card.appendChild(image);
-            card.appendChild(title);
-            container.appendChild(card);
-        });
-    } catch (error) {
-        console.error("Error fetching movies:", error);
+function populateRow(rowId, movies) {
+  const row = document.getElementById(rowId);
+  if (!row || !movies || movies.length === 0) {
+    console.warn(`Skipping ${rowId} — row not found or no movies`);
+    return;
+  }
+
+  row.innerHTML = '';
+
+  // Create 3x copies for seamless scroll illusion
+  const scrollMovies = [...movies, ...movies, ...movies];
+
+  scrollMovies.forEach(movie => {
+    const tile = document.createElement('div');
+    tile.className = 'movie-tile';
+    const imageUrl = movie.imageSet?.verticalPoster?.w240 || movie.fallbackPoster || 'https://via.placeholder.com/240x360';
+
+    tile.innerHTML = `
+      <img src="${imageUrl}" alt="${movie.title}">
+      <p>${movie.title}</p>
+    `;
+    row.appendChild(tile);
+  });
+
+  // Jump to the middle set of movies
+  requestAnimationFrame(() => {
+    const tile = row.querySelector('.movie-tile');
+    if (tile) {
+      row.scrollLeft = tile.offsetWidth * movies.length;
     }
+  });
+
+  // Smooth infinite scroll handling
+  row.addEventListener('scroll', () => {
+    const tile = row.querySelector('.movie-tile');
+    if (!tile) return;
+
+    const tileWidth = tile.offsetWidth + 16; // tile width + gap
+    const totalTiles = movies.length;
+    const scrollLeft = row.scrollLeft;
+    const maxScroll = tileWidth * totalTiles * 2;
+
+    if (scrollLeft < tileWidth) {
+      // too far left, jump forward
+      row.scrollLeft = scrollLeft + tileWidth * totalTiles;
+    } else if (scrollLeft > maxScroll - tileWidth) {
+      // too far right, jump backward
+      row.scrollLeft = scrollLeft - tileWidth * totalTiles;
+    }
+  });
 }
 
-fetchMovies();
-
 function searchMovies() {
-    const query = $('#movie-search').val();
-    $('#search-results').empty();
+  const query = document.getElementById('movie-search').value.trim();
+  const searchResults = document.getElementById('search-results');
+  searchResults.innerHTML = "";
 
-    if (query.trim() === "") return;
+  if (!query) return;
 
-    $.get(`/api/movies/search/${encodeURIComponent(query)}`, function (movies) {
-        movies.forEach(movie => {
-            const card = `
-                <div class="movie-card">
-                    <a href="/movies/${movie.tmdb_type}/${movie.tmdb_id}">
-                        <img src="${movie.poster_urls?.original || '#'}" alt="${movie.title}" />
-                    </a>
-                </div>
-            `;
-            $('#search-results').append(card);
-        });
-    });
+  fetch(`/api/movies?title=${encodeURIComponent(query)}`)
+    .then(res => res.json())
+    .then(movies => {
+      populateRow('search-results', movies);
+    })
+    .catch(err => console.error("Error searching:", err));
 }

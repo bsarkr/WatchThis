@@ -44,23 +44,31 @@ class Router {
     }
 
     protected function handleMovieRoutes() {
+
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'movies') {
             $streamingController = new StreamingController();
-
+    
             if (isset($this->uriArray[3])) {
-                if ($this->uriArray[3] === 'popular') {
-                    $streamingController->getPopularMovies(); // Add this later if needed
-                } elseif ($this->uriArray[3] === 'top10') {
-                    $streamingController->getTop10Movies(); // Add this later if needed
-                } elseif ($this->uriArray[3] === 'search' && isset($this->uriArray[4])) {
+                if ($this->uriArray[3] === 'search' && isset($this->uriArray[4])) {
                     $query = urldecode($this->uriArray[4]);
-                    $streamingController->searchMovies($query); // Add this method
+                    $streamingController->searchMovies($query);
                 } else {
-                    // Future fallback route or 404
+                    //Handle other subroutes like top10, popular, etc.
+                    http_response_code(404);
+                    echo json_encode(['error' => 'Invalid route']);
                 }
-            } else {
+            } 
+            else {
+                //Home page fetch hits this
                 $streamingController->getMovies();
             }
+        }
+    }
+
+    protected function handleGenreRoutes() {
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'genres') {
+            $streamingController = new StreamingController();
+            $streamingController->getGenres();
         }
     }
 }
