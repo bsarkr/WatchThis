@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | WatchThis</title>
+  <link rel="stylesheet" href="/assets/styles/userSetup.css"/>
+</head>
+
+<script src="/assets/js/setup.js" defer></script>
+
+
+<body>
+  <div class="setup-wrapper">
+    <form class="setup-box" id="signup-form">
+      <h1 class="setup-logo glow">WatchThis</h1>
+      <h2>Create Account</h2>
+
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+
+      <h3>Select a Profile Picture:</h3>
+      <div class="avatar-grid" id="avatar-grid"></div>
+
+      <!-- Avatar Modal -->
+      <div id="avatar-modal" class="avatar-modal">
+        <div class="avatar-modal-content">
+          <span id="modal-close" class="modal-close">&times;</span>
+          <h3>Select Your Avatar</h3>
+          <div class="avatar-modal-grid" id="avatar-modal-grid"></div>
+        </div>
+      </div>
+
+      <button type="submit" onclick="window.location.href='/user/signup/complete'">Sign Up</button>
+      
+      <p id="signup-error" class="error"></p>
+    </form>
+  </div>
+
+  <script src="/assets/js/userSetup.js"></script>
+</body>
+</html>

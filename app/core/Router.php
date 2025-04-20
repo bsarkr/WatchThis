@@ -31,18 +31,6 @@ class Router {
         }
     }
 
-    protected function handleUserRoutes() {
-        if ($this->uriArray[1] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController = new UserController();
-            $userController->usersView();
-        }
-
-        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController = new UserController();
-            $userController->getUsers();
-        }
-    }
-
     protected function handleMovieRoutes() {
 
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'movies') {
@@ -70,5 +58,70 @@ class Router {
             $streamingController = new StreamingController();
             $streamingController->getGenres();
         }
+    }
+
+    protected function handleUserRoutes() {
+        $userController = new UserController();
+
+        /*
+
+        if ($this->uriArray[1] === 'user' && isset($this->uriArray[2]) && $this->uriArray[2] === 'signup' && isset($this->uriArray[3]) && $this->uriArray[3] === 'complete' && isset($this->uriArray[4]) && $this->uriArray[4] === 'finish-setup' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->continueSetup();
+        }
+        */
+
+        //setup complete
+        if ($this->uriArray[1] === 'user' && isset($this->uriArray[2]) && $this->uriArray[2] === 'signup' && isset($this->uriArray[3]) && $this->uriArray[3] === 'complete' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->SetupComplete();
+        }
+        
+        // View: signup page
+        if ($this->uriArray[1] === 'user' && isset($this->uriArray[2]) && $this->uriArray[2] === 'signup' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->userSetUpView();
+        }
+
+
+    
+        // View: all users page (html)
+        if ($this->uriArray[1] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->usersView();
+        }
+
+        // View: login page (html)
+        if ($this->uriArray[1] === 'login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->loginView();
+        }
+
+        // API: get all users
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->getUsers();
+        }
+    
+        // API: signup
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'signup' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->signup();
+        }
+    
+        // API: login
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->login();
+        }
+    
+        // API: logout
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'logout' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->logout();
+        }
+
+        // API: check session
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'session' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->sessionStatus();
+        }
+
+        // API: get profile pictures
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'avatars' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->getProfilePictures();
+        }
+
+        
     }
 }
