@@ -441,26 +441,24 @@ class StreamingServiceApi {
     }
 
     public function getDetailsById($id, $type = 'movie') {
-        $endpoint = "/v2/{$type}/details";
-        $params = http_build_query([
-            'id' => $id,
-            'country' => 'us',
-            'output_language' => 'en',
-            'series_granularity' => 'episode'
-        ]);
-    
-        $response = $this->makeRequest("{$endpoint}?{$params}");
+        $url = "/shows/{$id}?country=us";
+        $response = $this->makeRequest($url);
     
         if (!$response || isset($response['error'])) return null;
     
         return [
             'id' => $response['imdbId'] ?? '',
+            'itemType' => $response['itemType'] ?? '',
+            'showType' => $response['showType'] ?? '',
+            'tmdbId' => $response['tmdbId'] ?? '',
             'title' => $response['title'] ?? '',
+            'originalTitle' => $response['originalTitle'] ?? '',
             'year' => $response['releaseYear'] ?? '',
             'type' => $type,
             'description' => $response['overview'] ?? '',
             'tagline' => $response['tagline'] ?? '',
             'poster' => $response['imageSet']['verticalPoster'] ?? null,
+            'backdrops' => $response['imageSet']['verticalBackdrop'] ?? [],
             'imdb_rating' => $response['rating'] ?? '',
             'cast' => $response['cast'] ?? [],
             'director' => $response['directors'][0] ?? '',
@@ -468,9 +466,15 @@ class StreamingServiceApi {
             'duration' => $response['runtime'] ?? '',
             'episodes' => $response['totalEpisodes'] ?? '',
             'seasons' => $response['seasons'] ?? '',
+            'genres' => array_map(fn($g) => $g['name'], $response['genres'] ?? []),
             'country' => $response['country'] ?? '',
             'streamingPlatforms' => isset($response['streamingOptions']['us']) 
-                ? array_keys($response['streamingOptions']['us'])
+                ? array_map(fn($opt) => [
+                    'name' => $opt['service']['name'] ?? '',
+                    'link' => $opt['link'] ?? '',
+                    'logo' => $opt['service']['imageSet']['whiteImage'] ?? '',
+                    'type' => $opt['type'] ?? '', // rent / subscription / buy
+                ], $response['streamingOptions']['us'])
                 : [],
         ];
     }
