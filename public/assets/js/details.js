@@ -27,9 +27,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Title
         document.getElementById('title').textContent = data.title;
 
+        // Back Button with smarter logic
+        document.getElementById('back-button').addEventListener('click', function (e) {
+            e.preventDefault();
+            const prev = sessionStorage.getItem('watchThis_prevPage');
+            if (prev) {
+                sessionStorage.removeItem('watchThis_prevPage');
+                window.location.href = prev;
+            } else {
+                window.location.href = '/';
+            }
+        });
+
         // Tags
         const tags = document.getElementById('tags');
-        tags.innerHTML = ''; // clear any existing content
+        tags.innerHTML = ''; 
         if (Array.isArray(data.genres) && data.genres.length > 0) {
             data.genres.forEach(g => {
                 const span = document.createElement('span');
@@ -84,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             trailerContainer.appendChild(iframe);
         }
     } catch (error) {
-        console.error("❌ Failed to load details:", error);
+        console.error("Failed to load details:", error);
         document.querySelector(".detail-container").innerHTML = `
             <div style="color:white;text-align:center;padding:50px;">
                 <h2>Sorry, something went wrong loading this title.</h2>
