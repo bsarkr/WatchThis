@@ -13,7 +13,7 @@
 <body>
   <div class="setup-wrapper">
     <form class="setup-box" id="signup-form">
-      <h1 class="setup-logo glow">WatchThis</h1>
+      <h1 class="setup-logo glow" onclick = "window.location.href='/'" style="cursor: pointer;">WatchThis</h1>
       <h2>Create Account</h2>
 
       <input type="text" name="username" placeholder="Username" required />
@@ -33,7 +33,7 @@
       </div>
 
       <button type="submit" onclick="window.location.href='/user/signup/complete'">Sign Up</button>
-      
+
       <p id="signup-error" class="error"></p>
     </form>
   </div>

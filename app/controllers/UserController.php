@@ -61,50 +61,17 @@ class UserController extends Controller {
         echo json_encode(['success' => true]);
     }
 
-    public function login() {
-        $input = json_decode(file_get_contents("php://input"), true);
-        $email = trim($input['email'] ?? '');
-        $password = $input['password'] ?? '';
-
-        if (!$email || !$password) {
-            http_response_code(400);
-            echo json_encode(['error' => 'All fields are required.']);
-            return;
-        }
-
-        $userModel = new User();
-        $user = $userModel->findByEmail($email);
-
-        if ($user && password_verify($password, $user['password'])) {
-            session_start();
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-
-            echo json_encode(['message' => 'Login successful.']);
-        } else {
-            http_response_code(401);
-            echo json_encode(['error' => 'Invalid credentials.']);
-        }
-    }
-
-    public function logout() {
-        session_start();
-        session_destroy();
-        echo json_encode(['message' => 'Logged out successfully.']);
-    }
-
     public function sessionStatus() {
         session_start();
-        if (isset($_SESSION['user_id'])) {
+        if (isset($_SESSION['id'])) {
             echo json_encode([
                 'loggedIn' => true,
-                'username' => $_SESSION['username']
+                'email' => $_SESSION['email']
             ]);
         } else {
             echo json_encode(['loggedIn' => false]);
         }
     }
-
 
     public function getProfilePictures() {
         $pdo = new \PDO('mysql:host=localhost;dbname=WatchThis', 'root', 'root');
@@ -113,4 +80,3 @@ class UserController extends Controller {
         echo json_encode($pictures);
     }
 }
-

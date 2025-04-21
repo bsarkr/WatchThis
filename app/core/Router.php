@@ -3,11 +3,16 @@
 namespace app\core;
 
 require_once __DIR__ . '/../controllers/StreamingController.php';
+require_once __DIR__ . '/../controllers/SearchController.php';
+require_once __DIR__ . '/../controllers/DetailsController.php';
 
 use app\controllers\MainController;
 use app\controllers\UserController;
 use app\controllers\MovieController;
 use app\controllers\StreamingController;
+use app\controllers\AuthController;
+use app\controllers\SearchController;
+use app\controllers\DetailsController;
 
 class Router {
     public $uriArray;
@@ -17,6 +22,8 @@ class Router {
         $this->handleMainRoutes();
         $this->handleUserRoutes();
         $this->handleMovieRoutes();
+        $this->handleGenreRoutes();
+        $this->handleDetailsRoutes(); 
     }
 
     protected function routeSplit() {
@@ -24,35 +31,59 @@ class Router {
         return explode("/", $removeQueryParams);
     }
 
+    // Main Views
     protected function handleMainRoutes() {
         if ($this->uriArray[1] === '' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $mainController = new MainController();
             $mainController->homepage();
         }
+
+        if ($this->uriArray[1] === 'movies' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $mainController = new MainController();
+            $mainController->moviesView();
+        }
+
+        if ($this->uriArray[1] === 'shows' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $mainController = new MainController();
+            $mainController->showsView();
+        }
     }
 
+    // Movies + Streaming Data
     protected function handleMovieRoutes() {
+        $streamingController = new StreamingController();
 
+        // Main /api/movies logic
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'movies') {
-            $streamingController = new StreamingController();
-    
             if (isset($this->uriArray[3])) {
                 if ($this->uriArray[3] === 'search' && isset($this->uriArray[4])) {
                     $query = urldecode($this->uriArray[4]);
                     $streamingController->searchMovies($query);
                 } else {
-                    //Handle other subroutes like top10, popular, etc.
                     http_response_code(404);
                     echo json_encode(['error' => 'Invalid route']);
                 }
-            } 
-            else {
-                //Home page fetch hits this
+            } else {
                 $streamingController->getMovies();
             }
         }
+
+        // movie-only homepage logic
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'only-movies') {
+            $streamingController->getOnlyMovies();
+        }
+
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'only-shows') {
+            $streamingController->getOnlyShows();
+        }
+
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'search') {
+            $searchController = new SearchController();
+            $searchController->search();
+        }
     }
 
+    // Genres 
     protected function handleGenreRoutes() {
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'genres') {
             $streamingController = new StreamingController();
@@ -60,68 +91,93 @@ class Router {
         }
     }
 
+    // Details Routes 
+    protected function handleDetailsRoutes() {
+        if (
+            $this->uriArray[1] === 'details' &&
+            isset($this->uriArray[2]) &&
+            isset($this->uriArray[3]) &&
+            $_SERVER['REQUEST_METHOD'] === 'GET'
+        ) {
+            $type = $this->uriArray[2];   // movie or series
+            $id = $this->uriArray[3];     // IMDB or internal id
+
+            $detailsController = new DetailsController();
+            $detailsController->show($type, $id);
+        }
+    }
+
+    // User & Auth Routes 
     protected function handleUserRoutes() {
         $userController = new UserController();
 
-        /*
-
-        if ($this->uriArray[1] === 'user' && isset($this->uriArray[2]) && $this->uriArray[2] === 'signup' && isset($this->uriArray[3]) && $this->uriArray[3] === 'complete' && isset($this->uriArray[4]) && $this->uriArray[4] === 'finish-setup' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController->continueSetup();
+        // TEMP: session debug
+        if ($this->uriArray[1] === 'session-test') {
+            echo json_encode($_SESSION);
+            exit;
         }
-        */
 
-        //setup complete
-        if ($this->uriArray[1] === 'user' && isset($this->uriArray[2]) && $this->uriArray[2] === 'signup' && isset($this->uriArray[3]) && $this->uriArray[3] === 'complete' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+        // View: signup complete
+        if (
+            $this->uriArray[1] === 'user' &&
+            isset($this->uriArray[2]) &&
+            $this->uriArray[2] === 'signup' &&
+            isset($this->uriArray[3]) &&
+            $this->uriArray[3] === 'complete' &&
+            $_SERVER['REQUEST_METHOD'] === 'GET'
+        ) {
             $userController->SetupComplete();
         }
-        
-        // View: signup page
-        if ($this->uriArray[1] === 'user' && isset($this->uriArray[2]) && $this->uriArray[2] === 'signup' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+
+        // View: signup form
+        if (
+            $this->uriArray[1] === 'user' &&
+            isset($this->uriArray[2]) &&
+            $this->uriArray[2] === 'signup' &&
+            $_SERVER['REQUEST_METHOD'] === 'GET'
+        ) {
             $userController->userSetUpView();
         }
 
-
-    
-        // View: all users page (html)
-        if ($this->uriArray[1] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController->usersView();
-        }
-
-        // View: login page (html)
-        if ($this->uriArray[1] === 'login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController->loginView();
-        }
-
-        // API: get all users
-        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController->getUsers();
-        }
-    
         // API: signup
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'signup' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->signup();
         }
-    
+
+        // View: all users
+        if ($this->uriArray[1] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->usersView();
+        }
+
+        // API: all users
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->getUsers();
+        }
+
+        // View: login form
+        if ($this->uriArray[1] === 'login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController->loginView();
+        }
+
         // API: login
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userController->login();
+            $authController = new AuthController();
+            $authController->login();
         }
-    
+
         // API: logout
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'logout' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->logout();
         }
 
-        // API: check session
+        // API: session check
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'session' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $userController->sessionStatus();
         }
 
-        // API: get profile pictures
+        // API: get avatars
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'avatars' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $userController->getProfilePictures();
         }
-
-        
     }
 }

@@ -19,7 +19,7 @@ fetch("/api/avatars")
       grid.appendChild(div);
     });
 
-    // Add "..." icon
+    // "..." icon
     const more = document.createElement("div");
     more.className = "avatar-option more";
     more.innerText = "...";
@@ -29,7 +29,6 @@ fetch("/api/avatars")
     };
     grid.appendChild(more);
 
-    // Populate modal
     const modalGrid = document.getElementById("avatar-modal-grid");
     data.forEach(pic => {
       const div = document.createElement("div");
@@ -58,7 +57,6 @@ function updateModalSelectionHighlight() {
 }
 
 function updatePreviewSelectionFromModal(avatarId) {
-    // Already exists in preview? Just highlight it
     if (previewMap[avatarId]) {
       document.querySelectorAll("#avatar-grid .avatar-option").forEach(el => el.classList.remove("selected"));
       previewMap[avatarId].classList.add("selected");

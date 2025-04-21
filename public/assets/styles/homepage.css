@@ -33,7 +33,7 @@ header {
   top: 0;
   background-color: rgb(23, 23, 23);
   z-index: 10000;
-  padding-top: 30px; /* lowered the whole header */
+  padding-top: 30px; 
   padding-bottom: 100px;
   height: auto;
 }
@@ -228,6 +228,14 @@ h2 {
   z-index: 1;
 }
 
+#search-results {
+  margin-top: 120px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
 /* Loader */
 #movie-wrapper {
   position: relative;
@@ -400,4 +408,122 @@ h2 {
   font-size: 14px;
   font-weight: bold;
   text-align: center;
+}
+
+#search-results {
+  padding: 2rem;
+  display: none;
+}
+
+.search-section {
+  margin-bottom: 3rem;
+}
+
+.search-section h2 {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: 'Noto Sans', sans-serif;
+  margin-bottom: 1rem;
+}
+
+.search-section .movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.search-section-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.fallback-poster {
+  width: 240px;
+  height: 360px;
+  background-color: #2c2c2c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+}
+
+
+/* Search-only loader — Uiverse.io dot flip */
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loader div {
+  margin-top:120px;
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #c517f0;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader div:nth-child(1) {
+  left: 8px;
+  animation: flip1 0.6s infinite;
+}
+
+.loader div:nth-child(2) {
+  left: 8px;
+  animation: flip2 0.6s infinite;
+}
+
+.loader div:nth-child(3) {
+  left: 32px;
+  animation: flip2 0.6s infinite;
+}
+
+.loader div:nth-child(4) {
+  left: 56px;
+  animation: flip3 0.6s infinite;
+}
+
+@keyframes flip1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes flip3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes flip2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(24px, 0);
+  }
 }

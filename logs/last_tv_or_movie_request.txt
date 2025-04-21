@@ -1,1 +1,1 @@
-https://streaming-availability.p.rapidapi.com/shows/search/filters?country=us&show_type=series&genres=action&order_by=popularity_1month&rating_min=65&series_granularity=show
+https://streaming-availability.p.rapidapi.com/v2/series/details?id=tt28256288&country=us&output_language=en&series_granularity=episode
