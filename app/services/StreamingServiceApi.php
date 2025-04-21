@@ -476,6 +476,35 @@ class StreamingServiceApi {
                     'type' => $opt['type'] ?? '', // rent / subscription / buy
                 ], $response['streamingOptions']['us'])
                 : [],
+            'trailer' => [
+                'youtubeVideoId' => $this->getTrailerFromTMDB($response['tmdbId'] ?? null)
+            ]
         ];
+    }
+
+    public function getTrailerFromTMDB($tmdbId) {
+        if (!$tmdbId) return null;
+    
+        $cleanId = preg_replace('/^(movie|tv|show)\//', '', $tmdbId);
+        $type = str_contains($tmdbId, 'tv') ? 'tv' : 'movie';
+    
+        $url = "https://api.themoviedb.org/3/{$type}/{$cleanId}/videos?api_key=d49dbc5dee65813cc43a2389613cf7f3";
+    
+        $res = @file_get_contents($url); // suppress warning
+        if ($res === false) return null;
+    
+        $json = json_decode($res, true);
+        if (!isset($json['results']) || !is_array($json['results'])) return null;
+    
+        foreach ($json['results'] as $video) {
+            if (
+                strtolower($video['type']) === 'trailer' &&
+                strtolower($video['site']) === 'youtube'
+            ) {
+                return $video['key'];
+            }
+        }
+    
+        return null;
     }
 }

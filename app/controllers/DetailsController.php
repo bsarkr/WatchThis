@@ -11,8 +11,16 @@ class DetailsController extends Controller {
     }
 
     public function apiShow($type, $id) {
+        //prevent PHP warnings from leaking into JSON
+        ini_set('display_errors', 0);
+        ini_set('display_startup_errors', 0);
+        error_reporting(0);
+    
         $service = new StreamingServiceApi();
         $data = $service->getDetailsById($id, $type);
-        $this->returnJSON($data);
+        
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
     }
 }

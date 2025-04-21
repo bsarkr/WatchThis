@@ -6,6 +6,7 @@ body {
   }
   
   .detail-container {
+    padding-top:140px;
     position: relative;
     overflow: hidden;
     min-height: 100vh;
@@ -37,9 +38,12 @@ body {
   }
   
   .detail-poster {
-    width: 300px;
+    height: 540px;
+    width: auto;
+    max-width: 100%;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+    object-fit: contain;
   }
   
   .detail-info {
@@ -47,9 +51,9 @@ body {
   }
   
   .detail-title {
-    font-size: 48px;
+    font-size: 64px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
   }
   
   .detail-tags {
@@ -60,27 +64,32 @@ body {
   }
   
   .detail-tags span {
-    background: rgba(255,255,255,0.1);
-    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 8px 18px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
   .detail-description {
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.5;
   }
   
   .streaming-logos {
     display: flex;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 25px;
+    margin-top: 25px;
     flex-wrap: wrap;
   }
   
   .streaming-logos img {
-    height: 40px;
+    height: 48px;
     filter: brightness(1.2);
   }
 
@@ -89,8 +98,8 @@ body {
   }
   
   .detail-info p {
-    margin-top: 10px;
-    font-size: 16px;
+    margin-top: 12px;
+    font-size: 18px;
     color: #e0e0e0;
   }
   
@@ -112,4 +121,59 @@ body {
     border-radius: 20px;
     font-size: 13px;
     font-weight: 500;
+  }
+
+  .fallback-poster {
+    width: 300px;
+    height: 450px;
+    background-color: #1e1e1e;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .detail-tags span {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: white;
+    letter-spacing: 0.4px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .compact-header {
+    background-color: rgba(15, 15, 15, 0.7); 
+    backdrop-filter: blur(6px); 
+    -webkit-backdrop-filter: blur(6px); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 999;
+  }
+
+  .trailer-section {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    max-width: 550px;
+  }
+  
+  .trailer-video {
+    width: 100%;
+    height:300px;
+    border-radius: 12px;
   }
