@@ -1,54 +1,54 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const pathParts = window.location.pathname.split('/');
-    const type = pathParts[2]; // 'movie' or 'series'
-    const id = pathParts[3];   // imdbID or whatever ID
+    const path = window.location.pathname.split('/');
+    const type = path[2]; // movie or series
+    const id = path[3];
   
-    if (!id || !type) {
-      document.getElementById("detail-container").innerHTML = "<p>Invalid link.</p>";
-      return;
+    const res = await fetch(`/api/details/${type}/${id}`);
+    const data = await res.json();
+  
+    if (!data || !data.title) return;
+  
+    // Background blur
+    const bg = document.getElementById('background');
+    bg.style.backgroundImage = `url(${data.poster.w720 || data.poster.w480 || data.poster.w240})`;
+  
+    // Poster
+    document.getElementById('poster').src = data.poster.w480 || data.poster.w240;
+  
+    // Title
+    document.getElementById('title').textContent = data.title;
+  
+    // Tags
+    const tags = document.getElementById('tags');
+    if (data.genres?.length) {
+      data.genres.forEach(g => {
+        const span = document.createElement('span');
+        span.textContent = g.name;
+        tags.appendChild(span);
+      });
+    }
+    if (data.duration) {
+      const runtime = document.createElement('span');
+      runtime.textContent = `${Math.floor(data.duration / 60)}h ${data.duration % 60}m`;
+      tags.appendChild(runtime);
     }
   
-    const response = await fetch(`/details/${type}/${id}`);
-    const data = await response.json();
-
-    if (!id || !type) {
-        document.getElementById("detail-container").innerHTML = "<p>Invalid detail link.</p>";
-        return;
-      }
+    // Description
+    document.getElementById('description').textContent = data.description;
   
-    if (!data || data.error) {
-      document.getElementById("detail-container").innerHTML = "<p>Unable to fetch details.</p>";
-      return;
-    }
+    // Director
+    document.getElementById('director').textContent = data.director;
   
-    renderDetails(data);
+    // Cast
+    document.getElementById('cast').textContent = data.cast.join(', ');
+  
+    // Streaming Platforms
+    const platformsDiv = document.getElementById('platforms');
+    data.streamingPlatforms.forEach(p => {
+      const a = document.createElement('a');
+      a.href = p.link;
+      a.target = "_blank";
+      a.innerHTML = `<img src="${p.logo}" alt="${p.name}" title="${p.name}" />`;
+      platformsDiv.appendChild(a);
+    });
   });
-  
-  function renderDetails(data) {
-    const container = document.getElementById("detail-container");
-  
-    container.innerHTML = `
-      <div class="poster">
-        <img src="${data.poster || '/assets/default-poster.png'}" alt="${data.title}">
-      </div>
-      <div class="info">
-        <h1>${data.title} <span>(${data.year})</span></h1>
-        <div class="meta">
-          <span>${data.type.toUpperCase()}</span>
-          <span>${data.duration || data.episodes}</span>
-          <span>${data.country}</span>
-          <span>⭐ ${data.imdb_rating}</span>
-        </div>
-        <p class="tagline">${data.tagline || ""}</p>
-        <p class="desc">${data.description}</p>
-  
-        <p><strong>Director / Creator:</strong> ${data.director || data.creator}</p>
-        <p><strong>Actors:</strong> ${data.cast?.join(", ")}</p>
-  
-        <h3>Available On:</h3>
-        <ul class="platforms">
-          ${data.streamingPlatforms.map(p => `<li>${p}</li>`).join("")}
-        </ul>
-      </div>
-    `;
-  }

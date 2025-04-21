@@ -93,17 +93,20 @@ class Router {
 
     // Details Routes 
     protected function handleDetailsRoutes() {
-        if (
-            $this->uriArray[1] === 'details' &&
-            isset($this->uriArray[2]) &&
-            isset($this->uriArray[3]) &&
-            $_SERVER['REQUEST_METHOD'] === 'GET'
-        ) {
-            $type = $this->uriArray[2];   // movie or series
-            $id = $this->uriArray[3];     // IMDB or internal id
+        $detailsController = new DetailsController();
+    
+        if ($this->uriArray[1] === 'details' && isset($this->uriArray[2]) && isset($this->uriArray[3]) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
-            $detailsController = new DetailsController();
-            $detailsController->show($type, $id);
+            $type = $this->uriArray[2];   // movie or series
+            $id = $this->uriArray[3];     // IMDB id
+
+            $detailsController->detailsView($type, $id);
+        }
+
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'details' && isset($this->uriArray[3]) && isset($this->uriArray[4]) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $type = $this->uriArray[3];
+            $id = $this->uriArray[4];
+            $detailsController->apiShow($type, $id);
         }
     }
 

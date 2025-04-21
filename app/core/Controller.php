@@ -5,8 +5,15 @@ namespace app\core;
 abstract class Controller {
 
     public function returnView($pathToView) {
-        require $pathToView;
-        exit();
+        $fullPath = __DIR__ . '/../../public/' . $pathToView;
+        if (file_exists($fullPath)) {
+            require $fullPath;
+            exit();
+        } else {
+            http_response_code(404);
+            echo "View not found: " . htmlspecialchars($pathToView);
+            exit();
+        }
     }
 
     public function returnJSON($json) {
@@ -14,6 +21,4 @@ abstract class Controller {
         echo json_encode($json);
         exit();
     }
-
-
 }

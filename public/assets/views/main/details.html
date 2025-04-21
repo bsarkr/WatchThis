@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WatchThis - Details</title>
+  <link rel="stylesheet" href="/assets/styles/movies.css">
+  <link rel="stylesheet" href="/assets/styles/details.css">
+  <script src="/assets/js/details.js" defer></script>
+</head>
+<body>
+
+  <!-- Compact Header -->
+  <header class="compact-header">
+    <div class="compact-left">
+      <h1 class="compact-logo" onclick="window.location.href='/'" style="cursor:pointer;">WatchThis</h1>
+      <div class="group compact-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon"><g>
+          <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 
+                   4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 
+                   11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+        </g></svg>
+        <input class="input" type="search" placeholder="Search Movies or TV Shows..." />
+      </div>
+    </div>
+    <div class="compact-buttons">
+      <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
+      <button class="nav-btn" onclick="location.href='/shows'">TV Shows</button>
+      <button class="nav-btn" onclick="location.href='/login'">Log In</button>
+      <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
+    </div>
+  </header>
+
+  <!-- Blurred Background -->
+  <div id="background" class="detail-bg"></div>
+
+  <!-- Content -->
+  <div class="detail-container">
+    <div class="detail-content">
+      <img id="poster" class="detail-poster" />
+      <div class="detail-info">
+        <div class="detail-title" id="title">Loading...</div>
+        <div class="detail-tags" id="tags"></div>
+        <div class="detail-description" id="description"></div>
+        <p><strong>Director:</strong> <span id="director"></span></p>
+        <p><strong>Cast:</strong> <span id="cast"></span></p>
+        <div class="streaming-logos" id="platforms"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
