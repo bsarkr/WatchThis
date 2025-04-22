@@ -6,7 +6,7 @@ class StreamingServiceApi {
     private $apiKey;
 
     public function __construct() {
-        $this->apiKey = 'a510d81c18msha0252262d20951fp129c91jsn6acb9fed9921';
+        $this->apiKey = $_ENV['STREAMING_API_KEY'];
     }
 
     public function getMovies($title = null, $country = 'us') {
@@ -386,7 +386,7 @@ class StreamingServiceApi {
     }
 
     private function fetchTmdbPosterPath($tmdbId, $type = 'movie') {
-        $apiKey = 'd49dbc5dee65813cc43a2389613cf7f3';
+        $apiKey = $_ENV['TMDB_API_KEY'];
         $url = "https://api.themoviedb.org/3/{$type}/{$tmdbId}?api_key={$apiKey}";
 
         $curl = curl_init();
@@ -488,7 +488,11 @@ class StreamingServiceApi {
         $cleanId = preg_replace('/^(movie|tv|show)\//', '', $tmdbId);
         $type = str_contains($tmdbId, 'tv') ? 'tv' : 'movie';
     
-        $url = "https://api.themoviedb.org/3/{$type}/{$cleanId}/videos?api_key=d49dbc5dee65813cc43a2389613cf7f3";
+        // ✅ Load the API key from environment
+        $apiKey = $_ENV['TMDB_API_KEY'] ?? null;
+        if (!$apiKey) return null;
+    
+        $url = "https://api.themoviedb.org/3/{$type}/{$cleanId}/videos?api_key={$apiKey}";
     
         $res = @file_get_contents($url); // suppress warning
         if ($res === false) return null;
