@@ -38,7 +38,7 @@ body {
   }
   
   .detail-poster {
-    height: 540px;
+    height: 400px;
     width: auto;
     max-width: 100%;
     border-radius: 12px;
@@ -51,7 +51,7 @@ body {
   }
   
   .detail-title {
-    font-size: 64px;
+    font-size: 50px;
     font-weight: bold;
     margin-bottom: 16px;
   }
@@ -76,7 +76,7 @@ body {
   }
   
   .detail-description {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     font-size: 20px;
     line-height: 1.5;
   }
@@ -89,7 +89,7 @@ body {
   }
   
   .streaming-logos img {
-    height: 48px;
+    height: 40px;
     filter: brightness(1.2);
   }
 
@@ -169,12 +169,12 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-    max-width: 550px;
+    max-width: 450px;
   }
   
   .trailer-video {
     width: 100%;
-    height:300px;
+    height:240px;
     border-radius: 12px;
   }
 

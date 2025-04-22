@@ -1,1 +1,1 @@
-https://streaming-availability.p.rapidapi.com/shows/search/title?title=diddy&country=us&show_type=series
+https://streaming-availability.p.rapidapi.com/shows/search/title?title=spiderman&country=us&show_type=series

@@ -16,6 +16,8 @@ require_once __DIR__ . '/AuthHelper.php';
 use \app\core\AuthHelper;
 AuthHelper::checkSession();
 
+require_once __DIR__ . '/../core/Database.php';
+
 require_once __DIR__ . '/Controller.php';
 require_once __DIR__ . '/Router.php';
 

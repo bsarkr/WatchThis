@@ -5,6 +5,7 @@ namespace app\core;
 require_once __DIR__ . '/../controllers/StreamingController.php';
 require_once __DIR__ . '/../controllers/SearchController.php';
 require_once __DIR__ . '/../controllers/DetailsController.php';
+require_once __DIR__ . '/../controllers/ReviewController.php';
 
 use app\controllers\MainController;
 use app\controllers\UserController;
@@ -13,6 +14,7 @@ use app\controllers\StreamingController;
 use app\controllers\AuthController;
 use app\controllers\SearchController;
 use app\controllers\DetailsController;
+use app\controllers\ReviewController;
 
 class Router {
     public $uriArray;
@@ -23,7 +25,8 @@ class Router {
         $this->handleUserRoutes();
         $this->handleMovieRoutes();
         $this->handleGenreRoutes();
-        $this->handleDetailsRoutes(); 
+        $this->handleDetailsRoutes();
+        $this->handleReviewRoutes(); 
     }
 
     protected function routeSplit() {
@@ -46,6 +49,11 @@ class Router {
         if ($this->uriArray[1] === 'shows' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $mainController = new MainController();
             $mainController->showsView();
+        }
+
+        if ($this->uriArray[1] === 'review' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $mainController = new MainController();
+            $mainController->reviewView();
         }
     }
 
@@ -110,6 +118,18 @@ class Router {
         }
     }
 
+    protected function handleReviewRoutes() {
+        $reviewController = new ReviewController();
+    
+        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'reviews') {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $reviewController->getAllReviews();
+            } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $reviewController->addReview();
+            }
+        }
+    }
+
     // User & Auth Routes 
     protected function handleUserRoutes() {
         $userController = new UserController();
@@ -121,24 +141,12 @@ class Router {
         }
 
         // View: signup complete
-        if (
-            $this->uriArray[1] === 'user' &&
-            isset($this->uriArray[2]) &&
-            $this->uriArray[2] === 'signup' &&
-            isset($this->uriArray[3]) &&
-            $this->uriArray[3] === 'complete' &&
-            $_SERVER['REQUEST_METHOD'] === 'GET'
-        ) {
+        if ($this->uriArray[1] === 'user' && isset($this->uriArray[2]) && $this->uriArray[2] === 'signup' && isset($this->uriArray[3]) && $this->uriArray[3] === 'complete' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $userController->SetupComplete();
         }
 
         // View: signup form
-        if (
-            $this->uriArray[1] === 'user' &&
-            isset($this->uriArray[2]) &&
-            $this->uriArray[2] === 'signup' &&
-            $_SERVER['REQUEST_METHOD'] === 'GET'
-        ) {
+        if ($this->uriArray[1] === 'user' && isset($this->uriArray[2]) && $this->uriArray[2] === 'signup' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $userController->userSetUpView();
         }
 

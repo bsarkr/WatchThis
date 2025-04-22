@@ -21,6 +21,10 @@ class MainController extends Controller {
         $this->returnView('./assets/views/main/shows.html');
     }
 
+    public function reviewView() {
+        $this->returnView('./assets/views/main/review.html');
+    }
+
     public function notFound() {}
 
     public function appData() {

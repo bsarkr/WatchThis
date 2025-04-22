@@ -70,12 +70,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!data || data.movies.length === 0) {
           grid.innerHTML = "<p>No movies found.</p>";
         } else {
-          data.movies.forEach(movie => {
-            const tile = document.createElement("div");
-            tile.className = "movie-tile";
-            tile.innerHTML = generatePosterHTML(movie);
-            grid.appendChild(tile);
-          });
+            data.movies.forEach(movie => {
+                const tile = document.createElement("div");
+                tile.className = "movie-tile";
+                tile.innerHTML = generatePosterHTML(movie);
+              
+                tile.addEventListener("click", () => {
+                  const id = movie.imdbId || movie.imdbID;
+                  const type = movie.type || (movie.episodeCount || movie.seasons ? "series" : "movie");
+                  window.location.href = `/details/${type}/${id}`;
+                });
+              
+                grid.appendChild(tile);
+              });
         }
       
         searchLoader.style.display = "none";
