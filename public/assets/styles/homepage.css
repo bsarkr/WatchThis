@@ -527,3 +527,66 @@ h2 {
     transform: translate(24px, 0);
   }
 }
+
+
+/* mobile responsive sidebar*/
+.mobile-hamburger {
+  display: none;
+  font-size: 30px;
+  color: white;
+  background: none;
+  border: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001;
+  cursor: pointer;
+}
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 280px;
+  height: 100%;
+  background-color: rgb(30, 30, 30);
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 10002;
+  transition: right 0.3s ease;
+  padding: 2rem 1.5rem;
+}
+
+.mobile-sidebar.active {
+  right: 0; 
+}
+
+.mobile-sidebar .close-sidebar {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  top: 1rem;
+  left: 1rem; 
+  cursor: pointer;
+}
+
+.mobile-sidebar-content {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .header-left,
+  .header-right,
+  .compact-buttons,
+  .compact-search {
+    display: none !important;
+  }
+
+  .mobile-hamburger {
+    display: block;
+  }
+}

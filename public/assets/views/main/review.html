@@ -1,6 +1,5 @@
 <html>
   <head>
-
     <title>Leave a Review</title>
 
     <link rel="stylesheet" href="/assets/styles/review.css">
@@ -12,64 +11,59 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
   </head>
 
   <body>
 
-    <!-- Compact Header -->
-    <header class="compact-header" style="display: flex;">
-
-      <div class="compact-left">
-        <h1 class="compact-logo" onclick="window.location.href='/'" style="cursor:pointer;">WatchThis</h1>
-      </div>
-
-      <div class="compact-buttons">
+    <!-- Slide-in Sidebar -->
+    <div id="sidebar" class="sidebar">
+      <span id="sidebar-close" class="sidebar-close">&times;</span>
+      <div class="sidebar-content">
         <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
         <button class="nav-btn" onclick="location.href='/shows'">TV Shows</button>
         <button class="nav-btn" onclick="location.href='/login'">Log In</button>
         <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
       </div>
-      
+    </div>
+
+    <!-- Compact Header -->
+    <header class="compact-header" style="display: flex;">
+      <div class="compact-left">
+        <h1 class="compact-logo" onclick="window.location.href='/'" style="cursor:pointer;">WatchThis</h1>
+      </div>
+
+      <div style="display: flex; align-items: center;">
+        <div class="compact-buttons">
+          <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
+          <button class="nav-btn" onclick="location.href='/shows'">TV Shows</button>
+          <button class="nav-btn" onclick="location.href='/login'">Log In</button>
+          <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
+        </div>
+        <div class="hamburger" id="hamburger">&#9776;</div>
+      </div>
     </header>
 
     <main id="content">
       <div class="review-wrapper">
         <div class="review-box">
           <h2>Leave a Review</h2>
-    
+
           <form id="review-form" class="review-form">
             <label for="name" class="review-label">Your Name</label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Anonymous"
-              required
-              class="review-input"
-            />
-    
+            <input type="text" id="name" placeholder="Anonymous" required class="review-input" />
+
             <label for="content" class="review-label">Your Review</label>
-            <textarea
-              id="content"
-              placeholder="Tell us what you think..."
-              required
-              rows="5"
-              class="review-textarea"
-            ></textarea>
-    
+            <textarea id="content" placeholder="Tell us what you think..." required rows="5" class="review-textarea"></textarea>
+
             <button type="submit" class="review-submit">Submit</button>
           </form>
         </div>
-
       </div>
 
       <div class="feedback-section">
-          <h3 class="feedback-heading">All Feedback</h3>
-          <div id="reviews-container" class="feedback-list"></div>
+        <h3 class="feedback-heading">All Feedback</h3>
+        <div id="reviews-container" class="feedback-list"></div>
       </div>
-
     </main>
-
   </body>
-  
 </html>

@@ -50,3 +50,26 @@ document.addEventListener("DOMContentLoaded", () => {
   
     loadReviews();
   });
+
+// Sidebar toggle logic
+document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.getElementById("sidebar");
+  const hamburger = document.getElementById("hamburger");
+  const closeBtn = document.getElementById("sidebar-close");
+
+  if (hamburger && closeBtn && sidebar) {
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.add("open");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        sidebar.classList.remove("open");
+      }
+    });
+  }
+});

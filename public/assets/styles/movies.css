@@ -568,3 +568,104 @@
     max-width: 1400px;
     margin: 0 auto;
   }
+
+  /* Slide-in Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 270px;
+    height: 100%;
+    background-color: rgb(23, 23, 23);
+    z-index: 10002; /* was 9999 — now above header */
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease-in-out;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .sidebar-content {
+    margin-top: 90px; /* push below fixed header */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .sidebar.open {
+    right: 0;
+  }
+
+  .sidebar-close {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .sidebar-content .nav-btn {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .sidebar .input {
+    width: 100%;
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
+
+    .compact-left {
+      flex: 1;
+    }
+
+    .compact-buttons {
+      display: none;
+    }
+
+    .compact-search {
+      display: none;
+    }
+  }
+
+  /* Right-aligned Hamburger Menu (Over Header) */
+  .hamburger-right {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    margin-left: 1rem;
+    z-index: 10002;
+  }
+
+  @media screen and (max-width: 768px) {
+    .hamburger-right {
+      display: block;
+    }
+
+    .compact-buttons {
+      display: none;
+    }
+
+    .compact-search {
+      display: none;
+    }
+
+    .compact-left {
+      flex: 1;
+    }
+  }

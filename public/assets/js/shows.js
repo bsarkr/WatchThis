@@ -280,3 +280,23 @@ function generatePosterHTML(item) {
     return `<div class="fallback-poster"><span>${title}</span></div>`;
   }
 }
+
+
+  // Hamburger and Sidebar
+document.getElementById("hamburger").onclick = () => {
+  document.getElementById("sidebar").classList.add("open");
+};
+  
+document.getElementById("sidebar-close").onclick = () => {
+  document.getElementById("sidebar").classList.remove("open");
+};
+  
+document.getElementById("sidebar-search").addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    const value = event.target.value.trim();
+    if (value) {
+      searchMovies(value);
+      document.getElementById("sidebar").classList.remove("open");
+    }
+  }
+});

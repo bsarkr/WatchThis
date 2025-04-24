@@ -40,6 +40,20 @@ class UserController extends Controller {
             return;
         }
     
+        // Username: letters, numbers, underscores only
+        if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Username can only contain letters, numbers, and underscores.']);
+            return;
+        }
+    
+        // Password: at least 8 characters
+        if (strlen($password) < 8) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Password must be at least 8 characters long.']);
+            return;
+        }
+    
         $userModel = new \app\models\User();
     
         if ($userModel->findByEmail($email)) {
@@ -55,8 +69,14 @@ class UserController extends Controller {
         }
     
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $userModel->create($username, $email, $passwordHash, $avatarId);
-    
+        $created = $userModel->create($username, $email, $passwordHash, $avatarId);
+
+        if (!$created) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Something went wrong. Please try again.']);
+            return;
+        }
+
         http_response_code(201);
         echo json_encode(['success' => true]);
     }

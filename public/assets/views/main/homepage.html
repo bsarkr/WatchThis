@@ -17,6 +17,27 @@
     <title>WatchThis</title>
 
   </head>
+
+  <!-- mobile responsive sidebar -->
+  <div class="mobile-hamburger" onclick="toggleSidebar()">☰</div>
+
+  <div id="mobile-sidebar" class="mobile-sidebar">
+    <button class="close-sidebar" onclick="toggleSidebar()">×</button>
+    <div class="mobile-sidebar-content">
+      <input
+        id="sidebar-search"
+        class="input"
+        type="search"
+        placeholder="Search Movies or TV Shows..."
+        onkeydown="if(event.key === 'Enter') searchMovies(this.value)"
+      />
+      <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
+      <button class="nav-btn" onclick="location.href='/shows'">TV Shows</button>
+      <button class="nav-btn" onclick="location.href='/login'">Log In</button>
+      <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
+    </div>
+  </div>
+  
   <body>
 
   <!-- Header Always visible -->

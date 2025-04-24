@@ -29,6 +29,10 @@ class MainController extends Controller {
 
     public function appData() {
 
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         error_log('appData route hit');
         error_log('Session ID: ' . session_id());
         error_log('Session Contents: ' . json_encode($_SESSION));

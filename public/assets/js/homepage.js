@@ -282,3 +282,19 @@ window.addEventListener("scroll", function () {
     lastState = false;
   }
 });
+
+// mobile responsive sidebar toggle
+function toggleSidebar() {
+  const sidebar = document.getElementById("mobile-sidebar");
+  sidebar.classList.toggle("active");
+}
+
+window.addEventListener("click", (e) => {
+  const sidebar = document.getElementById("mobile-sidebar");
+  const hamburger = document.querySelector(".mobile-hamburger");
+  if (sidebar.classList.contains("active") &&
+      !sidebar.contains(e.target) &&
+      !hamburger.contains(e.target)) {
+    sidebar.classList.remove("active");
+  }
+});
