@@ -25,7 +25,9 @@ class MainController extends Controller {
         $this->returnView('./assets/views/main/review.html');
     }
 
-    public function notFound() {}
+    public function notFound() {
+        $this->returnView('./assets/views/pageNotFound.html');
+    }
 
     public function appData() {
 

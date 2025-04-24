@@ -1,0 +1,58 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: rgb(23, 23, 23);
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .not-found-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .glow-title {
+    font-size: 8rem;
+    font-weight: 900;
+    color: #ff4eaf;
+    text-shadow: 0 0 15px rgba(255, 78, 175, 0.6);
+    margin-bottom: 1rem;
+  }
+  
+  .not-found-message {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .not-found-subtext {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 2rem;
+  }
+  
+  .home-btn {
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(145deg, #d9539c, #a84e84);
+    box-shadow: 0 0 8px rgba(217, 83, 156, 0.3);
+    transition: all 0.25s ease-in-out;
+  }
+  
+  .home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 16px rgba(217, 83, 156, 0.5);
+  }
