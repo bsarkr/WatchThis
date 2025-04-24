@@ -487,14 +487,13 @@ class StreamingServiceApi {
     
         $cleanId = preg_replace('/^(movie|tv|show)\//', '', $tmdbId);
         $type = str_contains($tmdbId, 'tv') ? 'tv' : 'movie';
-    
-        // ✅ Load the API key from environment
+
         $apiKey = $_ENV['TMDB_API_KEY'] ?? null;
         if (!$apiKey) return null;
     
         $url = "https://api.themoviedb.org/3/{$type}/{$cleanId}/videos?api_key={$apiKey}";
     
-        $res = @file_get_contents($url); // suppress warning
+        $res = @file_get_contents($url); // suppress warning (warning in json file was causing issues)
         if ($res === false) return null;
     
         $json = json_decode($res, true);

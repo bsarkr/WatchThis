@@ -37,8 +37,10 @@ class AuthController extends Controller {
     }
 
     public function logout() {
-        AuthHelper::endSession();
+        session_unset();
+        session_destroy();
+        setcookie(session_name(), '', time() - 3600, '/');
         http_response_code(200);
-        $this->returnJSON(['message' => 'Logged out']);
+        $this->returnJSON(['message' => 'Logged out']);//last thing i changed
     }
 }

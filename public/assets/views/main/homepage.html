@@ -1,199 +1,214 @@
 <html>
-<head>
-  <script type="text/javascript" src="/assets/js/homepage.js" defer></script>
-  <link rel="stylesheet" href="/assets/styles/homepage.css">
+  <head>
+    
+    <script type="text/javascript" src="/assets/js/homepage.js" defer></script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/styles/homepage.css">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WatchThis</title>
-</head>
-<body>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-<!-- Header Always visible -->
-<header id="main-header">
-  <div class="header-row" id="original-header">
-    <div class="header-left">
-      <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
-      <button class="nav-btn" onclick="location.href='/shows'">TV Shows</button>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WatchThis</title>
+
+  </head>
+  <body>
+
+  <!-- Header Always visible -->
+  <header id="main-header">
+
+    <div class="header-row" id="original-header">
+
+      <div class="header-left">
+        <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
+        <button class="nav-btn" onclick="location.href='/shows'">TV Shows</button>
+      </div>
+
+      <div class="header-center">
+
+        <h1 onclick = "window.location.href='/'" style="cursor: pointer;">WatchThis</h1>
+        <h2>Find Your Favorite Movies!</h2>
+
+        <div class="group">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+            <g>
+              <path
+                d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+              ></path>
+            </g>
+          </svg>
+
+          <input
+            id="movie-search"
+            class="input"
+            type="search"
+            placeholder="Search Movies or TV Shows..."
+            name="searchbar"
+            onkeydown="if(event.key === 'Enter') searchMovies()"
+          />
+        </div>
+
+      </div>
+
+      <div class="header-right">
+        <button class="nav-btn" onclick="location.href='/login'">Log In</button>
+        <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
+      </div>
+
     </div>
 
-    <div class="header-center">
-      <h1 onclick = "window.location.href='/'" style="cursor: pointer;">WatchThis</h1>
-      <h2>Find Your Favorite Movies!</h2>
-      <div class="group">
-        <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
-          <g>
-            <path
-              d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-            ></path>
-          </g>
-        </svg>
-        <input
-          id="movie-search"
-          class="input"
-          type="search"
-          placeholder="Search Movies or TV Shows..."
-          name="searchbar"
-          onkeydown="if(event.key === 'Enter') searchMovies()"
-        />
+    <!-- Compact header for scroll -->
+    <div class="compact-header" id="scrolled-header" style="display: none;">
+
+      <div class="compact-left">
+
+        <h1 class="compact-logo" onclick="window.location.href='/'" style="cursor:pointer;">WatchThis</h1>
+
+        <div class="group compact-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+            <g>
+              <path
+                d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+              ></path>
+            </g>
+          </svg>
+
+          <input
+            id="compact-search"
+            class="input"
+            type="search"
+            placeholder="Search Movies or TV Shows..."
+            name="searchbar"
+          />
+        </div>
+
+      </div>
+
+      <div class="compact-buttons">
+        <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
+        <button class="nav-btn">TV Shows</button>
+        <button class="nav-btn" onclick="location.href='/login'">Log In</button>
+        <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- movie wrapper (only this gets hidden while loading) -->
+  <div id="movie-wrapper">
+
+    <!--Loader stays centered over only the content -->
+    <div id="loader" class="loader-container">
+      <div class="newtons-cradle">
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
       </div>
     </div>
 
-    <div class="header-right">
-      <button class="nav-btn" onclick="location.href='/login'">Log In</button>
-      <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
+    <!--Hidden movie content -->
+    <main id="content" style="display: none">
+
+      <section class="category-section">
+        <h2>Trending Movies</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="movieTrending-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="category-section">
+        <h2>Recently Added Movies</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="movieRecent-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="category-section">
+        <h2>Trending Shows</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="tvTrending-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="category-section">
+        <h2>Recently Added Shows</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="tvRecent-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="category-section">
+        <h2>Top Rated Movies This Year</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="movieTopRated-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="category-section">
+        <h2>Top Rated Shows This Year</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="tvTopRated-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="category-section">
+        <h2>Action Movie Picks</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="movieAction-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="category-section">
+        <h2>Action TV Show Picks</h2>
+        <div class="scroll-container">
+          <div class="scroll-arrow left" aria-hidden="true"></div>
+          <div class="scroll-row" id="tvAction-row"></div>
+          <div class="scroll-arrow right" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <div style="text-align: center; padding: 30px;">
+        <button onclick="window.location.href='/review'" style="background: none; border: none; color: rgba(255, 255, 255, 0.5); font-size: 16px; cursor: pointer; margin-top: 20px; margin-bottom: 30px;">
+          Leave Feedback
+        </button>
+      </div>
+
+    </main>
+
+    <!-- Search loader (dot flip animation) -->
+    <div id="search-loader" style="display: none; justify-content: center; padding: 2rem;">
+      <div class="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
+
+    <!--Search Results Section (for keyword-based search) -->
+    <div id="search-results" class="movie-grid" style="padding: 2rem; display: none;"></div>
+
   </div>
 
-  <!-- Compact header for scroll -->
-  <div class="compact-header" id="scrolled-header" style="display: none;">
-    <div class="compact-left">
-      <h1 class="compact-logo" onclick="window.location.href='/'" style="cursor:pointer;">WatchThis</h1>
-      <div class="group compact-search">
-        <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
-          <g>
-            <path
-              d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-            ></path>
-          </g>
-        </svg>
-        <input
-          id="compact-search"
-          class="input"
-          type="search"
-          placeholder="Search Movies or TV Shows..."
-          name="searchbar"
-        />
-      </div>
-    </div>
-    <div class="compact-buttons">
-      <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
-      <button class="nav-btn">TV Shows</button>
-      <button class="nav-btn" onclick="location.href='/login'">Log In</button>
-      <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
-    </div>
-  </div>
-</header>
-
-<!-- movie wrapper (only this gets hidden while loading) -->
-<div id="movie-wrapper">
-
-  <!--Loader stays centered over only the content -->
-  <div id="loader" class="loader-container">
-    <div class="newtons-cradle">
-      <div class="newtons-cradle__dot"></div>
-      <div class="newtons-cradle__dot"></div>
-      <div class="newtons-cradle__dot"></div>
-      <div class="newtons-cradle__dot"></div>
-    </div>
-  </div>
-
-  <!--Hidden movie content -->
-  <main id="content" style="display: none">
-    <!-- your 8 category sections (Trending, Action, etc) stay the same! -->
-    <!-- not removed, untouched on purpose -->
-    <section class="category-section">
-      <h2>Trending Movies</h2>
-      <div class="scroll-container">
-        <div class="scroll-arrow left" aria-hidden="true"></div>
-        <div class="scroll-row" id="movieTrending-row"></div>
-        <div class="scroll-arrow right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="category-section">
-      <h2>Recently Added Movies</h2>
-      <div class="scroll-container">
-        <div class="scroll-arrow left" aria-hidden="true"></div>
-        <div class="scroll-row" id="movieRecent-row"></div>
-        <div class="scroll-arrow right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="category-section">
-      <h2>Trending Shows</h2>
-      <div class="scroll-container">
-        <div class="scroll-arrow left" aria-hidden="true"></div>
-        <div class="scroll-row" id="tvTrending-row"></div>
-        <div class="scroll-arrow right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="category-section">
-      <h2>Recently Added Shows</h2>
-      <div class="scroll-container">
-        <div class="scroll-arrow left" aria-hidden="true"></div>
-        <div class="scroll-row" id="tvRecent-row"></div>
-        <div class="scroll-arrow right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="category-section">
-      <h2>Top Rated Movies This Year</h2>
-      <div class="scroll-container">
-        <div class="scroll-arrow left" aria-hidden="true"></div>
-        <div class="scroll-row" id="movieTopRated-row"></div>
-        <div class="scroll-arrow right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="category-section">
-      <h2>Top Rated Shows This Year</h2>
-      <div class="scroll-container">
-        <div class="scroll-arrow left" aria-hidden="true"></div>
-        <div class="scroll-row" id="tvTopRated-row"></div>
-        <div class="scroll-arrow right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="category-section">
-      <h2>Action Movie Picks</h2>
-      <div class="scroll-container">
-        <div class="scroll-arrow left" aria-hidden="true"></div>
-        <div class="scroll-row" id="movieAction-row"></div>
-        <div class="scroll-arrow right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="category-section">
-      <h2>Action TV Show Picks</h2>
-      <div class="scroll-container">
-        <div class="scroll-arrow left" aria-hidden="true"></div>
-        <div class="scroll-row" id="tvAction-row"></div>
-        <div class="scroll-arrow right" aria-hidden="true"></div>
-      </div>
-    </section>
-
-
-    <!-- Add this just before the closing </body> -->
-    <div style="text-align: center; padding: 30px;">
-      <button onclick="window.location.href='/review'" style="background: none; border: none; color: rgba(255, 255, 255, 0.5); font-size: 16px; cursor: pointer; margin-top: 20px; margin-bottom: 30px;">
-        Leave Feedback
-      </button>
-    </div>
-
-  </main>
-
-  <!-- Search Loader -->
-  <!-- Search loader (dot flip animation) -->
-  <div id="search-loader" style="display: none; justify-content: center; padding: 2rem;">
-    <div class="loader">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-
-  <!--Search Results Section (for keyword-based search) -->
-  <div id="search-results" class="movie-grid" style="padding: 2rem; display: none;"></div>
-
-</div>
-
-</body>
+  </body>
 </html>

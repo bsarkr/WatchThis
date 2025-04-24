@@ -1,135 +1,149 @@
 <html>
-<head>
-  <script type="text/javascript" src="/assets/js/shows.js" defer></script>
-  <link rel="stylesheet" href="/assets/styles/movies.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <head>
+    
+    <script type="text/javascript" src="/assets/js/shows.js" defer></script>
+    <link rel="stylesheet" href="/assets/styles/movies.css">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WatchThis | Movies</title>
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-<header class="compact-header" style="display: flex;">
-  <div class="compact-left">
-    <h1 class="compact-logo" onclick="window.location.href='/'" style="cursor:pointer;">WatchThis</h1>
-    <div class="group compact-search">
-      <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
-        <g>
-          <path
-            d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-          ></path>
-        </g>
-      </svg>
-      <input
-        class="input"
-        type="search"
-        placeholder="Search Movies or TV Shows..."
-        name="searchbar"
-        onkeydown="if(event.key === 'Enter') searchMovies()"
-      />
-    </div>
-  </div>
-  <div class="compact-buttons">
-    <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
-    <button class="nav-btn" onclick="location.href='/shows'">TV Shows</button>
-    <button class="nav-btn" onclick="location.href='/login'">Log In</button>
-    <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
-  </div>
-</header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div id="show-wrapper">
+    <title>WatchThis | Movies</title>
 
-  <!-- Loader -->
-  <div id="loader" class="loader-container">
-    <div class="newtons-cradle">
-      <div class="newtons-cradle__dot"></div>
-      <div class="newtons-cradle__dot"></div>
-      <div class="newtons-cradle__dot"></div>
-      <div class="newtons-cradle__dot"></div>
-    </div>
-  </div>
+  </head>
 
-  <!-- Genre Dropdown -->
-  <div class="category-section" style="padding-top: 60px;">
-    <div class="movies-header">
-      <h2 class="movies-title">Shows</h2>
-      <select id="genre-select">
-        <option value="">Genres</option>
-        <option value="action">Action</option>
-        <option value="comedy">Comedy</option>
-        <option value="drama">Drama</option>
-        <option value="romance">Romance</option>
-        <option value="thriller">Thriller</option>
-        <option value="animation">Animation</option>
-      </select>
-    </div>
-  </div>
+  <body>
 
-  <div class="section-divider"></div>
+  <header class="compact-header" style="display: flex;">
 
-  <!-- Search Results Grid -->
-  <div id="search-results" class="movie-grid" style="padding: 2rem; display: none;"></div>
+    <div class="compact-left">
 
-  <!-- Search Loader -->
-    <div id="search-loader" style="display: none; text-align: center; margin: 2rem 0;">
-        <div class="loader">
-        <div></div><div></div><div></div><div></div>
-        </div>
+      <h1 class="compact-logo" onclick="window.location.href='/'" style="cursor:pointer;">WatchThis</h1>
+
+      <div class="group compact-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+          <g>
+            <path
+              d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+            ></path>
+          </g>
+        </svg>
+
+        <input
+          class="input"
+          type="search"
+          placeholder="Search Movies or TV Shows..."
+          name="searchbar"
+          onkeydown="if(event.key === 'Enter') searchMovies()"
+        />
+      </div>
+
     </div>
 
-  <!-- Genre Filtered Grid -->
-  <div id="genre-results" class="movie-grid" style="padding: 2rem; display: none;"></div>
+    <div class="compact-buttons">
+      <button class="nav-btn" onclick="location.href='/movies'">Movies</button>
+      <button class="nav-btn" onclick="location.href='/shows'">TV Shows</button>
+      <button class="nav-btn" onclick="location.href='/login'">Log In</button>
+      <button class="nav-btn" onclick="location.href='/user/signup'">Sign Up</button>
+    </div>
 
+  </header>
 
-  <!-- Default Rows -->
-  <main id="show-content" style="display: none;">
-    <section class="category-section">
-      <h2>Your Next Watch</h2>
-      <div class="scroll-container">
-        <div class="scroll-row" id="tvShowNextWatch-row"></div>
+  <div id="show-wrapper">
+
+    <!-- Loader -->
+    <div id="loader" class="loader-container">
+      <div class="newtons-cradle">
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
+        <div class="newtons-cradle__dot"></div>
       </div>
-    </section>
+    </div>
 
-    <section class="category-section">
-      <h2>Popular Now</h2>
-      <div class="scroll-container">
-        <div class="scroll-row" id="tvShowPopular-row"></div>
+    <!-- Genre Dropdown -->
+    <div class="category-section" style="padding-top: 60px;">
+      <div class="movies-header">
+        <h2 class="movies-title">Shows</h2>
+        <select id="genre-select">
+          <option value="">Genres</option>
+          <option value="action">Action</option>
+          <option value="comedy">Comedy</option>
+          <option value="drama">Drama</option>
+          <option value="romance">Romance</option>
+          <option value="thriller">Thriller</option>
+          <option value="animation">Animation</option>
+        </select>
       </div>
-    </section>
+    </div>
 
-    <section class="category-section">
-      <h2>Action</h2>
-      <div class="scroll-container">
-        <div class="scroll-row" id="tvShowAction-row"></div>
+    <div class="section-divider"></div>
+
+    <!-- Search Results Grid -->
+    <div id="search-results" class="movie-grid" style="padding: 2rem; display: none;"></div>
+
+    <!-- Search Loader -->
+      <div id="search-loader" style="display: none; text-align: center; margin: 2rem 0;">
+          <div class="loader">
+          <div></div><div></div><div></div><div></div>
+          </div>
       </div>
-    </section>
 
-    <section class="category-section">
-      <h2>Drama</h2>
-      <div class="scroll-container">
-        <div class="scroll-row" id="tvShowDrama-row"></div>
-      </div>
-    </section>
+    <!-- Genre Filtered Grid -->
+    <div id="genre-results" class="movie-grid" style="padding: 2rem; display: none;"></div>
 
-    <section class="category-section">
-        <h2>Comedy</h2>
+
+    <!-- Default Rows -->
+    <main id="show-content" style="display: none;">
+      <section class="category-section">
+        <h2>Your Next Watch</h2>
         <div class="scroll-container">
-          <div class="scroll-row" id="tvShowComedy-row"></div>
+          <div class="scroll-row" id="tvShowNextWatch-row"></div>
         </div>
-    </section>
+      </section>
 
-    <section class="category-section">
-        <h2>Thriller</h2>
+      <section class="category-section">
+        <h2>Popular Now</h2>
         <div class="scroll-container">
-          <div class="scroll-row" id="tvShowThriller-row"></div>
+          <div class="scroll-row" id="tvShowPopular-row"></div>
         </div>
-    </section>
+      </section>
 
-  </main>
+      <section class="category-section">
+        <h2>Action</h2>
+        <div class="scroll-container">
+          <div class="scroll-row" id="tvShowAction-row"></div>
+        </div>
+      </section>
 
-</div>
-</body>
+      <section class="category-section">
+        <h2>Drama</h2>
+        <div class="scroll-container">
+          <div class="scroll-row" id="tvShowDrama-row"></div>
+        </div>
+      </section>
+
+      <section class="category-section">
+          <h2>Comedy</h2>
+          <div class="scroll-container">
+            <div class="scroll-row" id="tvShowComedy-row"></div>
+          </div>
+      </section>
+
+      <section class="category-section">
+          <h2>Thriller</h2>
+          <div class="scroll-container">
+            <div class="scroll-row" id="tvShowThriller-row"></div>
+          </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  </body>
+  
 </html>

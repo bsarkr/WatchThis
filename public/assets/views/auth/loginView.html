@@ -1,24 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | WatchThis</title>
-  <link rel="stylesheet" href="/assets/styles/login.css"/>
-</head>
-<body>
-  <div class="login-wrapper">
-    <form class="login-box" id="login-form">
-      <h1 class="login-logo" onclick = "window.location.href='/'" style="cursor: pointer;">WatchThis</h1>
-      <h2>Login</h2>
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-      <p class="login-switch">Don't have an account? <a href="/user/signup">Sign Up</a></p>
-      <p id="login-error" class="error"></p>
-    </form>
-  </div>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login | WatchThis</title>
+    <link rel="stylesheet" href="/assets/styles/login.css"/>
+  </head>
 
-  <script src="/assets/js/login.js" defer></script>
-</body>
+  <body>
+    <div class="login-wrapper">
+
+      <div id="logged-in-box" class="login-box" style="display: none;">
+
+        <h1 class="login-logo" onclick="window.location.href='/'" style="cursor: pointer;">WatchThis</h1>
+
+        <h2>Welcome back, <span id="user-email"></span>!</h2>
+
+        <button id="logout-btn" type="button">Logout</button>
+
+      </div>
+
+      <form class="login-box" id="login-form">
+
+        <h1 class="login-logo" onclick = "window.location.href='/'" style="cursor: pointer;">WatchThis</h1>
+
+        <h2>Login</h2>
+
+        <input type="email" name="email" placeholder="Email" required />
+
+        <input type="password" name="password" placeholder="Password" required />
+
+        <button type="submit">Login</button>
+
+        <p class="login-switch">Don't have an account? <a href="/user/signup">Sign Up</a></p>
+
+        <p id="login-error" class="error"></p>
+
+      </form>
+      
+    </div>
+
+    <script src="/assets/js/login.js" defer></script>
+
+  </body>
 </html>

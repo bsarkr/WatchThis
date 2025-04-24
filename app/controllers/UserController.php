@@ -62,7 +62,6 @@ class UserController extends Controller {
     }
 
     public function sessionStatus() {
-        session_start();
         if (isset($_SESSION['id'])) {
             echo json_encode([
                 'loggedIn' => true,

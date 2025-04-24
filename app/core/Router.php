@@ -178,7 +178,8 @@ class Router {
 
         // API: logout
         if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'logout' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userController->logout();
+            $authController = new AuthController();
+            $authController->logout();
         }
 
         // API: session check
