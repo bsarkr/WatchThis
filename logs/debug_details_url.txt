@@ -1,1 +1,1 @@
-https://streaming-availability.p.rapidapi.com/shows/search/filters?country=us&show_type=series&genres=thriller&order_by=popularity_1month&order_direction=desc&series_granularity=show
+https://streaming-availability.p.rapidapi.com/shows/search/filters?country=us&show_type=series&genres=action&order_by=popularity_1month&rating_min=65&series_granularity=show
