@@ -11,22 +11,29 @@ document.addEventListener("DOMContentLoaded", () => {
   
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-  
+    
       const name = nameInput.value.trim();
       const content = contentInput.value.trim();
-  
+      const errorBox = document.getElementById("review-error");
+      errorBox.textContent = ""; 
+    
       if (!name || !content) return;
-  
+    
       const res = await fetch("/api/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, content }),
       });
-  
+    
+      const data = await res.json();
+    
       if (res.ok) {
         nameInput.value = "";
         contentInput.value = "";
+        errorBox.textContent = "";
         loadReviews();
+      } else {
+        errorBox.textContent = data.error || "Something went wrong.";
       }
     });
   
