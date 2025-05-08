@@ -1,3 +1,5 @@
+# WatchThis
+
 By Bilash Sarkar
 
 WatchThis is a full-stack web application that helps users find out where to watch any movie or TV show. Inspired by the design and simplicity of Netflix, this site allows users to search titles, browse by genre or popularity, and explore detailed info about their favorite content.
