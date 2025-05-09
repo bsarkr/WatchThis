@@ -36,7 +36,7 @@ Tools:
 
 
 Setup & Installation
-1. Clone the Repo: git clone https://github.com/yourusername/WatchThis.git
+1. Clone the Repo: git clone https://github.com/bsarkr/WatchThis.git
 2. Start your server:
     - Launch XAMPP (or MAMP), and start Apache and MySQL.
 3. Database setup:
